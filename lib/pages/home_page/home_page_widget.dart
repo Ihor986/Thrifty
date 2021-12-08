@@ -242,33 +242,31 @@ class HomePageWiget extends StatelessWidget {
             ),
           ),
         ),
-        Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: screensize * 0.12),
-            child: Container(
-              color: headcolor2,
-              height: screensize * 0.5,
-              child: ListView.builder(
-                itemCount: _homePageBloc.transactionsList.length,
-                itemBuilder: (_, index) => Container(
-                  color: index % 2 == 0 ? headcolor2 : headcolor2,
-                  child: GestureDetector(
-                    onLongPress: () async {
-                      return showDialog(
-                        context: context,
-                        barrierDismissible: true, // user must tap button!
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: headcolor2,
-                            actionsAlignment: MainAxisAlignment.spaceBetween,
-                            // title: Text(deleteTransactionText),
-                            actions: _transactionWidget(index),
-                          );
-                        },
-                      );
-                    },
-                    child: _transactionTextWidget(index),
-                  ),
+        Padding(
+          padding: EdgeInsets.only(top: screensize * 0.12),
+          child: Container(
+            color: headcolor2,
+            height: screensize * 0.5,
+            child: ListView.builder(
+              itemCount: _homePageBloc.transactionsList.length,
+              itemBuilder: (_, index) => Container(
+                color: index % 2 == 0 ? headcolor2 : headcolor2,
+                child: GestureDetector(
+                  onLongPress: () async {
+                    return showDialog(
+                      context: context,
+                      barrierDismissible: true, // user must tap button!
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          backgroundColor: headcolor2,
+                          actionsAlignment: MainAxisAlignment.spaceBetween,
+                          // title: Text(deleteTransactionText),
+                          actions: _transactionWidget(index),
+                        );
+                      },
+                    );
+                  },
+                  child: _transactionTextWidget(index),
                 ),
               ),
             ),
