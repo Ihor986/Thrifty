@@ -17,7 +17,7 @@
     "Income from":"Доход по категории",
     "Expense to":"Расход по категории",
     "Forward from":"Переведено с",
-    "to":"to",
+    "to":"на",
     "My money":"Денег на балансе",
     "Input new sum":"Введите сумму",
     "Delete Shopping list?":"Удалить список?",
@@ -37,6 +37,18 @@
     "input new budget sum":"укажите размер бюджета",
     "edite sum":"изменить сумму",
     "account is":"счёт",
-    "blank field":"пустое поле"
+    "blank field":"пустое поле",
+    "January ":"Января ",
+    "February ":"Февраля ",
+    "March ":"Марта ",
+    "April ":"Апреля ",
+    "May ":"Мая ",
+    "June ":"Июня ",
+    "July ":"Июля ",
+    "August ":"Августа ",
+    "September ":"Сентября ",
+    "October ":"Октября ",
+    "November ":"Ноября ",
+    "December ":"Декабря "
     
  }

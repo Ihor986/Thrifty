@@ -55,41 +55,77 @@ class HomePageWiget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                        '${_homePageBloc.transactionsList[index]['date']} ${_homePageBloc.months[int.parse(_homePageBloc.transactionsList[index]['month']) - 1]}'),
+                    Row(
+                      children: [
+                        Text(
+                            '${_homePageBloc.transactionsList[index]['date']}'),
+                        LocaleText(_homePageBloc.months[int.parse(_homePageBloc
+                                .transactionsList[index]['month']) -
+                            1]),
+                      ],
+                    ),
                     Text('${_homePageBloc.transactionsList[index]['account']}',
                         textAlign: TextAlign.start),
                   ],
                 ),
                 SizedBox(height: screensize * 0.015),
               ],
-              // mainAxisAlignment: MainAxisAlignment.start,
             ),
           );
         }
         if (_homePageBloc.transactionsList[index].containsKey('sum1')) {
-          return Column(
-            children: [
-              Row(
-                children: [
-                  LocaleText(forwardFromText),
-                  Text(
-                    ' ${_homePageBloc.transactionsList[index]['account1']} ${_homePageBloc.transactionsList[index]['sum1']} ${_homePageBloc.transactionsList[index]['currency1']}',
-                    style: TextStyle(color: blue),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  LocaleText(forwardToText),
-                  Text(
-                    ' ${_homePageBloc.transactionsList[index]['account2']} ${_homePageBloc.transactionsList[index]['date']} ${_homePageBloc.months[int.parse(_homePageBloc.transactionsList[index]['month']) - 1]}',
-                    style: TextStyle(color: blue),
-                  ),
-                ],
-              ),
-              SizedBox(height: screensize * 0.015),
-            ],
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        LocaleText(
+                          forwardFromText,
+                          style: TextStyle(color: blue),
+                        ),
+                        Text(
+                          ' ' +
+                              _homePageBloc.transactionsList[index]
+                                  ['account1'] +
+                              ' ',
+                          style: TextStyle(color: blue),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '  ${_homePageBloc.transactionsList[index]['sum2']} ${_homePageBloc.transactionsList[index]['currency2']}',
+                      style: TextStyle(color: blue),
+                    ),
+                  ],
+                ),
+                SizedBox(height: screensize * 0.01),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          _homePageBloc.transactionsList[index]['date'],
+                        ),
+                        LocaleText(
+                          _homePageBloc.months[int.parse(_homePageBloc
+                                  .transactionsList[index]['month']) -
+                              1],
+                        ),
+                      ],
+                    ),
+                    Text(
+                      _homePageBloc.transactionsList[index]['account2'],
+                    ),
+                  ],
+                ),
+                SizedBox(height: screensize * 0.015),
+              ],
+            ),
           );
         }
         if (_homePageBloc.transactionsList[index]
@@ -143,7 +179,6 @@ class HomePageWiget extends StatelessWidget {
               child: LocaleText(editeText),
               onPressed: () async {
                 _homePageBloc.editeTransactionIndex = index;
-                // EditeForwardTransaction(index);
                 Navigator.of(context).pop();
                 Navigator.pushNamed(context, '/EditeForwardTransactionPage');
               },
@@ -207,13 +242,12 @@ class HomePageWiget extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: screensize * 0.12),
-          child: Container(
-            color: headcolor2,
-            height: screensize * 0.5,
+        Center(
+          child: Padding(
+            padding: EdgeInsets.only(top: screensize * 0.12),
             child: Container(
               color: headcolor2,
+              height: screensize * 0.5,
               child: ListView.builder(
                 itemCount: _homePageBloc.transactionsList.length,
                 itemBuilder: (_, index) => Container(
