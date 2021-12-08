@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:thrifty/vars/colors.dart';
 part 'home_page_events.dart';
@@ -668,7 +669,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
           return AlertDialog(
             backgroundColor: headcolor2,
             scrollable: true,
-            title: const Text('blank field'),
+            title: const LocaleText("blank field"),
           );
         });
   }

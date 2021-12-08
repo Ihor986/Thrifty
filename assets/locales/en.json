@@ -32,5 +32,12 @@
    "sum to account":"sum to account",
    " category is":" category is",
    "delete category?":"Delete category?",
-   "transaction":"transaction"
+   "transaction":"transaction",
+   "input new shoplist name":"input new shoplist name",
+   "input new budget sum":"input new budget sum",
+   "edite sum":"edite sum",
+   "account is":"account is",
+   "blank field":"blank field"
+   
+   
 }

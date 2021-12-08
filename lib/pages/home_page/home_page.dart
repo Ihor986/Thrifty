@@ -40,7 +40,7 @@ class MyHomePage extends StatelessWidget {
                     backgroundColor: headcolor2,
                     title: Column(
                       children: [
-                        Text(inputNewSumText),
+                        LocaleText(inputNewSumText),
                         TextField(
                           keyboardType: TextInputType.number,
                           focusNode: FocusNode(),

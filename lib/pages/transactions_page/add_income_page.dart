@@ -189,7 +189,7 @@ class EnterIncomesPage extends StatelessWidget {
                     children: [
                       const LocaleText(" category is"),
                       Text(
-                          ' ${_homePageBloc.incomeCategorys[_homePageBloc.indexToSelectIncomeCategory]}'),
+                          ' "${_homePageBloc.incomeCategorys[_homePageBloc.indexToSelectIncomeCategory]}"'),
                     ],
                   ),
                 ),
@@ -203,7 +203,7 @@ class EnterIncomesPage extends StatelessWidget {
                     children: [
                       LocaleText(toAccount),
                       Text(
-                          '  ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['name']} ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['currency']}'),
+                          '  "${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['name']} ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['currency']}"'),
                     ],
                   ),
                   onPressed: () async {

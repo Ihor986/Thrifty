@@ -83,8 +83,8 @@ class EditeTransactionPage extends StatelessWidget {
                                                     return AlertDialog(
                                                       backgroundColor:
                                                           headcolor2,
-                                                      title: const Text(
-                                                          'delete category?'),
+                                                      title: const LocaleText(
+                                                          "delete category?"),
                                                       actions: [
                                                         Column(
                                                           children: [
@@ -117,8 +117,7 @@ class EditeTransactionPage extends StatelessWidget {
                                       )),
                             ),
                             TextButton(
-                                child:
-                                    const Text('select new inputed category'),
+                                child: LocaleText(selectNewCategory),
                                 onPressed: () {
                                   _homePageBloc.add(
                                       OnsubmitedChangeExpensCategorys(
@@ -134,8 +133,13 @@ class EditeTransactionPage extends StatelessWidget {
                 },
               );
             },
-            child: Text(
-                ' category is ${_homePageBloc.expensCategorys[_homePageBloc.indexToSelectExpenseCategory]}'),
+            child: Row(
+              children: [
+                const LocaleText(" category is"),
+                Text(
+                    ' ${_homePageBloc.expensCategorys[_homePageBloc.indexToSelectExpenseCategory]}'),
+              ],
+            ),
           ),
         );
       } else {
@@ -151,7 +155,7 @@ class EditeTransactionPage extends StatelessWidget {
                   return AlertDialog(
                     backgroundColor: headcolor2,
                     scrollable: true,
-                    title: const Text('Select category'),
+                    title: LocaleText(selectCategory),
                     actions: <Widget>[
                       TextField(
                         focusNode: FocusNode(),
@@ -204,14 +208,14 @@ class EditeTransactionPage extends StatelessWidget {
                                                     return AlertDialog(
                                                       backgroundColor:
                                                           headcolor2,
-                                                      title: const Text(
-                                                          'delete category?'),
+                                                      title: const LocaleText(
+                                                          "delete category?"),
                                                       actions: [
                                                         Column(
                                                           children: [
                                                             TextButton(
-                                                              child: const Text(
-                                                                  'Approve'),
+                                                              child: LocaleText(
+                                                                  approveText),
                                                               onPressed:
                                                                   () async {
                                                                 _homePageBloc
@@ -242,8 +246,7 @@ class EditeTransactionPage extends StatelessWidget {
                                       )),
                             ),
                             TextButton(
-                                child:
-                                    const Text('select new inputed category'),
+                                child: LocaleText(selectNewCategory),
                                 onPressed: () {
                                   _homePageBloc.add(
                                       OnsubmitedChangeIncomeCategorys(
@@ -259,8 +262,13 @@ class EditeTransactionPage extends StatelessWidget {
                 },
               );
             },
-            child: Text(
-                ' category is ${_homePageBloc.incomeCategorys[_homePageBloc.indexToSelectIncomeCategory]}'),
+            child: Row(
+              children: [
+                const LocaleText(" category is"),
+                Text(
+                    ' "${_homePageBloc.incomeCategorys[_homePageBloc.indexToSelectIncomeCategory]}"'),
+              ],
+            ),
           ),
         );
       }
@@ -270,7 +278,7 @@ class EditeTransactionPage extends StatelessWidget {
       return Scaffold(
           backgroundColor: headcolor2,
           appBar: AppBar(
-            title: const Text('transaction'),
+            title: const LocaleText("transaction"),
           ),
           body: Column(
             children: [
@@ -328,8 +336,13 @@ class EditeTransactionPage extends StatelessWidget {
               Container(
                 color: headcolor2,
                 child: TextButton(
-                  child: Text(
-                      'account is ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['name']} in ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['currency']}'),
+                  child: Row(
+                    children: [
+                      const LocaleText("account is"),
+                      Text(
+                          ' "${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['name']} in ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['currency']}"'),
+                    ],
+                  ),
                   onPressed: () async {
                     return showDialog(
                       context: context,
@@ -338,7 +351,7 @@ class EditeTransactionPage extends StatelessWidget {
                         return AlertDialog(
                           backgroundColor: headcolor2,
                           scrollable: true,
-                          title: const Text('Select account'),
+                          title: LocaleText(selectAccount),
                           actions: <Widget>[
                             Center(
                               child: Column(

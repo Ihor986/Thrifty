@@ -24,12 +24,24 @@ class HomePageWiget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     _homePageBloc.transactionsList[index]['sum'] > 0
-                        ? Text(
-                            '$incomeFromText ${_homePageBloc.transactionsList[index]['category']} ',
-                            style: TextStyle(color: green))
-                        : Text(
-                            '$expenseToText ${_homePageBloc.transactionsList[index]['category']} ',
-                            style: TextStyle(color: red)),
+                        ? Row(
+                            children: [
+                              LocaleText(incomeFromText,
+                                  style: TextStyle(color: green)),
+                              Text(
+                                  ' "${_homePageBloc.transactionsList[index]['category']}" ',
+                                  style: TextStyle(color: green)),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              LocaleText(expenseToText,
+                                  style: TextStyle(color: red)),
+                              Text(
+                                  ' "${_homePageBloc.transactionsList[index]['category']}" ',
+                                  style: TextStyle(color: red)),
+                            ],
+                          ),
                     _homePageBloc.transactionsList[index]['sum'] > 0
                         ? Text(
                             '${_homePageBloc.transactionsList[index]['sum']} ${_homePageBloc.transactionsList[index]['currency']}',
@@ -39,13 +51,14 @@ class HomePageWiget extends StatelessWidget {
                             style: TextStyle(color: red))
                   ],
                 ),
+                SizedBox(height: screensize * 0.01),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        '${_homePageBloc.transactionsList[index]['account']} ${_homePageBloc.transactionsList[index]['date']} ${_homePageBloc.months[int.parse(_homePageBloc.transactionsList[index]['month']) - 1]}',
+                        '${_homePageBloc.transactionsList[index]['date']} ${_homePageBloc.months[int.parse(_homePageBloc.transactionsList[index]['month']) - 1]}'),
+                    Text('${_homePageBloc.transactionsList[index]['account']}',
                         textAlign: TextAlign.start),
-                    const SizedBox(),
                   ],
                 ),
                 SizedBox(height: screensize * 0.015),
@@ -57,13 +70,23 @@ class HomePageWiget extends StatelessWidget {
         if (_homePageBloc.transactionsList[index].containsKey('sum1')) {
           return Column(
             children: [
-              Text(
-                '$forwardFromText ${_homePageBloc.transactionsList[index]['account1']} ${_homePageBloc.transactionsList[index]['sum1']} ${_homePageBloc.transactionsList[index]['currency1']}',
-                style: TextStyle(color: blue),
+              Row(
+                children: [
+                  LocaleText(forwardFromText),
+                  Text(
+                    ' ${_homePageBloc.transactionsList[index]['account1']} ${_homePageBloc.transactionsList[index]['sum1']} ${_homePageBloc.transactionsList[index]['currency1']}',
+                    style: TextStyle(color: blue),
+                  ),
+                ],
               ),
-              Text(
-                '$forwardToText ${_homePageBloc.transactionsList[index]['account2']} ${_homePageBloc.transactionsList[index]['date']} ${_homePageBloc.months[int.parse(_homePageBloc.transactionsList[index]['month']) - 1]}',
-                style: TextStyle(color: blue),
+              Row(
+                children: [
+                  LocaleText(forwardToText),
+                  Text(
+                    ' ${_homePageBloc.transactionsList[index]['account2']} ${_homePageBloc.transactionsList[index]['date']} ${_homePageBloc.months[int.parse(_homePageBloc.transactionsList[index]['month']) - 1]}',
+                    style: TextStyle(color: blue),
+                  ),
+                ],
               ),
               SizedBox(height: screensize * 0.015),
             ],
@@ -79,9 +102,14 @@ class HomePageWiget extends StatelessWidget {
                 style: TextStyle(color: unBought),
               )),
               Center(
-                  child: Text(
-                '$deleteAccountTransactionText2 ${_homePageBloc.transactionsList[index]['closeTheAccountSum']}',
-                style: TextStyle(color: unBought),
+                  child: Row(
+                children: [
+                  LocaleText(deleteAccountTransactionText2),
+                  Text(
+                    ' ${_homePageBloc.transactionsList[index]['closeTheAccountSum']}',
+                    style: TextStyle(color: unBought),
+                  ),
+                ],
               )),
               SizedBox(height: screensize * 0.015),
             ],
@@ -93,7 +121,7 @@ class HomePageWiget extends StatelessWidget {
         if (_homePageBloc.transactionsList[index].containsKey('sum')) {
           return <Widget>[
             TextButton(
-              child: Text(editeText),
+              child: LocaleText(editeText),
               onPressed: () async {
                 _homePageBloc.editeTransactionIndex = index;
                 Navigator.of(context).pop();
@@ -101,7 +129,7 @@ class HomePageWiget extends StatelessWidget {
               },
             ),
             TextButton(
-              child: Text(deleteText),
+              child: LocaleText(deleteText),
               onPressed: () async {
                 _homePageBloc.add(DeleteTransactionEvent(index));
                 Navigator.of(context).pop();
@@ -112,7 +140,7 @@ class HomePageWiget extends StatelessWidget {
         if (_homePageBloc.transactionsList[index].containsKey('sum1')) {
           return <Widget>[
             TextButton(
-              child: Text(editeText),
+              child: LocaleText(editeText),
               onPressed: () async {
                 _homePageBloc.editeTransactionIndex = index;
                 // EditeForwardTransaction(index);
@@ -121,7 +149,7 @@ class HomePageWiget extends StatelessWidget {
               },
             ),
             TextButton(
-              child: Text(deleteText),
+              child: LocaleText(deleteText),
               onPressed: () async {
                 _homePageBloc.add(DeleteForwardTransaction(index));
                 Navigator.of(context).pop();
@@ -134,7 +162,7 @@ class HomePageWiget extends StatelessWidget {
           return <Widget>[
             const SizedBox(width: 10.0),
             TextButton(
-              child: Text(deleteText),
+              child: LocaleText(deleteText),
               onPressed: () async {
                 _homePageBloc.add(DeleteCloseAccountTransaction(index));
                 Navigator.of(context).pop();

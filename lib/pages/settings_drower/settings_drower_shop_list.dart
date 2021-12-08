@@ -53,7 +53,7 @@ class SettingsShopList extends StatelessWidget {
                                       title: Text(deleteShopListText),
                                       actions: <Widget>[
                                         TextButton(
-                                          child: Text(approveText),
+                                          child: LocaleText(approveText),
                                           onPressed: () async {
                                             _homePageBloc.add(
                                                 DeleteShopListEvent(
@@ -98,7 +98,7 @@ class SettingsShopList extends StatelessWidget {
                   return AlertDialog(
                       backgroundColor: headcolor2,
                       scrollable: true,
-                      title: const Text('input new shoplist name'),
+                      title: const LocaleText("input new shoplist name"),
                       actions: <Widget>[
                         TextField(
                           focusNode: FocusNode(),
@@ -106,7 +106,7 @@ class SettingsShopList extends StatelessWidget {
                           obscureText: false,
                         ),
                         TextButton(
-                          child: const Text('Approve'),
+                          child: LocaleText(approveText),
                           onPressed: () async {
                             if (_inputController.text != '') {
                               _homePageBloc.add(

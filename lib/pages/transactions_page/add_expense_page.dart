@@ -190,7 +190,7 @@ class EnterTheExpensePage extends StatelessWidget {
                     children: [
                       const LocaleText(" category is"),
                       Text(
-                          ' ${_homePageBloc.expensCategorys[_homePageBloc.indexToSelectExpenseCategory]}'),
+                          ' "${_homePageBloc.expensCategorys[_homePageBloc.indexToSelectExpenseCategory]}"'),
                     ],
                   ),
                 ),
@@ -204,7 +204,7 @@ class EnterTheExpensePage extends StatelessWidget {
                     children: [
                       LocaleText(fromAccount),
                       Text(
-                          ' ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['name']} ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['currency']}'),
+                          ' "${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['name']} ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['currency']}"'),
                     ],
                   ),
                   onPressed: () async {

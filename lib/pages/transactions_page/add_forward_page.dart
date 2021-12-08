@@ -131,7 +131,7 @@ class _EnterForwardPageState extends State<EnterForwardPage> {
                         children: [
                           LocaleText(fromAccount),
                           Text(
-                              '${_homePageBloc.countsList[_homePageBloc.indexForwardAccount1]['name']}'),
+                              ' "${_homePageBloc.countsList[_homePageBloc.indexForwardAccount1]['name']}"'),
                         ],
                       ),
                     ),
@@ -186,7 +186,7 @@ class _EnterForwardPageState extends State<EnterForwardPage> {
                         children: [
                           LocaleText(toAccount),
                           Text(
-                              '${_homePageBloc.countsList[_homePageBloc.indexForwardAccount2]['name']}'),
+                              ' "${_homePageBloc.countsList[_homePageBloc.indexForwardAccount2]['name']}"'),
                         ],
                       ),
                     ),

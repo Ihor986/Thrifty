@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_locales/flutter_locales.dart';
 import 'package:thrifty/bloc/my_home_page_bloc/home_page_bloc.dart';
 import 'package:thrifty/vars/colors.dart';
+import 'package:thrifty/vars/text.dart';
 
 class SettingsCounts extends StatelessWidget {
   const SettingsCounts({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class SettingsCounts extends StatelessWidget {
     return Scaffold(
         backgroundColor: headcolor2,
         appBar: AppBar(
-          title: const Text('counts'),
+          title: const LocaleText("Accounts"),
         ),
         body: Column(children: [
           Form(
@@ -68,9 +70,9 @@ class SettingsCounts extends StatelessWidget {
                   _homePageBloc.blankField(context);
                 }
               },
-              child: const Text(
-                'Add',
-                style: TextStyle(color: Colors.black),
+              child: LocaleText(
+                add,
+                style: const TextStyle(color: Colors.black),
               ))
         ]));
   }

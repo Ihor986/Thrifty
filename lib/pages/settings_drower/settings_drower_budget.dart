@@ -48,8 +48,8 @@ class SettingsBudget extends StatelessWidget {
                                           return AlertDialog(
                                               backgroundColor: headcolor2,
                                               scrollable: true,
-                                              title: const Text(
-                                                  'input new budget sum'),
+                                              title: const LocaleText(
+                                                  "input new budget sum"),
                                               actions: <Widget>[
                                                 TextField(
                                                   keyboardType:
@@ -59,7 +59,8 @@ class SettingsBudget extends StatelessWidget {
                                                   obscureText: false,
                                                 ),
                                                 TextButton(
-                                                  child: const Text('Approve'),
+                                                  child:
+                                                      LocaleText(approveText),
                                                   onPressed: () async {
                                                     try {
                                                       _homePageBloc.add(
@@ -81,7 +82,7 @@ class SettingsBudget extends StatelessWidget {
                                               ]);
                                         });
                                   },
-                                  child: const Text('edite sum'),
+                                  child: const LocaleText("edite sum"),
                                 )
                               ],
                             ),
