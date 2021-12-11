@@ -74,13 +74,17 @@ class MyHomePage extends StatelessWidget {
                 },
               );
             },
-            child: Column(children: [
-              LocaleText(budget,
-                  style: TextStyle(color: black, fontSize: screensize * 0.03)),
-              Text(
-                  ' ${_homePageBloc.budgetSum} ${_homePageBloc.currencyList[_homePageBloc.currencyListIndex]['currency']}',
-                  style: TextStyle(color: black, fontSize: screensize * 0.02)),
-            ]),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  LocaleText(budget,
+                      style: TextStyle(
+                          color: black, fontSize: screensize * 0.025)),
+                  Text(
+                      ' ${_homePageBloc.budgetSum} ${_homePageBloc.currencyList[_homePageBloc.currencyListIndex]['currency']}',
+                      style:
+                          TextStyle(color: black, fontSize: screensize * 0.02)),
+                ]),
           ),
         ),
         // ),

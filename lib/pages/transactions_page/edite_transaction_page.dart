@@ -134,6 +134,7 @@ class EditeTransactionPage extends StatelessWidget {
               );
             },
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const LocaleText(" category is"),
                 Text(
@@ -146,6 +147,14 @@ class EditeTransactionPage extends StatelessWidget {
         return Container(
           color: headcolor2,
           child: TextButton(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const LocaleText(" category is"),
+                Text(
+                    ' "${_homePageBloc.incomeCategorys[_homePageBloc.indexToSelectIncomeCategory]}"'),
+              ],
+            ),
             onPressed: () async {
               return showDialog(
                 context: context,
@@ -262,13 +271,6 @@ class EditeTransactionPage extends StatelessWidget {
                 },
               );
             },
-            child: Row(
-              children: [
-                const LocaleText(" category is"),
-                Text(
-                    ' "${_homePageBloc.incomeCategorys[_homePageBloc.indexToSelectIncomeCategory]}"'),
-              ],
-            ),
           ),
         );
       }
@@ -317,9 +319,12 @@ class EditeTransactionPage extends StatelessWidget {
                   autofocus: true,
                   keyboardType: TextInputType.number,
                   obscureText: false,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'enter the sum',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: _homePageBloc
+                        .transactionsList[_homePageBloc.editeTransactionIndex]
+                            ['sum']
+                        .toString(),
                   ),
                   onChanged: (value) {
                     try {
@@ -337,6 +342,7 @@ class EditeTransactionPage extends StatelessWidget {
                 color: headcolor2,
                 child: TextButton(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const LocaleText("account is"),
                       Text(

@@ -33,15 +33,24 @@ class _EnterForwardPageState extends State<EditeForwardPage> {
               Container(
                 padding: const EdgeInsets.all(10.0),
                 child: TextField(
+                  // controller: TextEditingController()
+                  //   ..text = _homePageBloc.transactionsList[
+                  //               _homePageBloc.editeTransactionIndex]['sum1'] >
+                  //           0
+                  //       ? '${_homePageBloc.transactionsList[_homePageBloc.editeTransactionIndex]['sum1']}'
+                  //       : '${0 - _homePageBloc.transactionsList[_homePageBloc.editeTransactionIndex]['sum1']}',
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r'[0-9\.]'))
                   ],
                   autofocus: true,
                   keyboardType: TextInputType.number,
                   obscureText: false,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'sum from account',
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: _homePageBloc
+                        .transactionsList[_homePageBloc.editeTransactionIndex]
+                            ['sum1']
+                        .toString(),
                   ),
                   onChanged: (value) {
                     try {
@@ -63,7 +72,10 @@ class _EnterForwardPageState extends State<EditeForwardPage> {
                     obscureText: false,
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
-                      labelText: sumToAccount,
+                      labelText: _homePageBloc
+                          .transactionsList[_homePageBloc.editeTransactionIndex]
+                              ['sum2']
+                          .toString(),
                     ),
                     onChanged: (value) {
                       try {

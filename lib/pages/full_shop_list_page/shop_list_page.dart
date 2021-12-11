@@ -40,7 +40,7 @@ class FullShopListWiget extends StatelessWidget {
                                 backgroundColor: headcolor2,
                                 title: LocaleText(addNewProductText),
                                 content: TextField(
-                                    maxLength: 10,
+                                    maxLength: 15,
                                     controller: _inputController),
                                 actions: <Widget>[
                                   TextButton(
