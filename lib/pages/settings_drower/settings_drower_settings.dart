@@ -16,25 +16,36 @@ class SettingsSettings extends StatelessWidget {
         appBar: AppBar(
           title: LocaleText(textSettings),
         ),
-        body: Column(
-          children: [
-            ListTile(
-              title: const Text('english'),
-              onTap: () {
-                context.changeLocale('en');
+        body: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ListTile(
+                title: const Text('English'),
+                onTap: () {
+                  context.changeLocale('en');
 
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: const Text('русский'),
-              onTap: () {
-                context.changeLocale('ru');
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: const Text('Українська'),
+                onTap: () {
+                  context.changeLocale('it');
 
-                Navigator.of(context).pop();
-              },
-            )
-          ],
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: const Text('Русский'),
+                onTap: () {
+                  context.changeLocale('ru');
+
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          ),
         ),
       );
     });

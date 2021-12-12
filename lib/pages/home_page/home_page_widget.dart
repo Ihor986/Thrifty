@@ -130,25 +130,48 @@ class HomePageWiget extends StatelessWidget {
         }
         if (_homePageBloc.transactionsList[index]
             .containsKey('closeTheAccountSum')) {
-          return Column(
-            children: [
-              Center(
-                  child: Text(
-                deleteAccountTransactionText1,
-                style: TextStyle(color: unBought),
-              )),
-              Center(
-                  child: Row(
-                children: [
-                  LocaleText(deleteAccountTransactionText2),
-                  Text(
-                    ' ${_homePageBloc.transactionsList[index]['closeTheAccountSum']}',
-                    style: TextStyle(color: unBought),
-                  ),
-                ],
-              )),
-              SizedBox(height: screensize * 0.015),
-            ],
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Center(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    LocaleText(
+                      deleteAccountTransactionText1,
+                      style: TextStyle(color: unBought),
+                    ),
+                    Text(
+                      '${0 - _homePageBloc.transactionsList[index]['closeTheAccountSum']}',
+                      style: TextStyle(color: unBought),
+                    ),
+                  ],
+                )),
+                Center(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          _homePageBloc.transactionsList[index]['date'],
+                          style: TextStyle(color: unBought),
+                        ),
+                        LocaleText(
+                          _homePageBloc.months[int.parse(_homePageBloc
+                                  .transactionsList[index]['month']) -
+                              1],
+                          style: TextStyle(color: unBought),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(),
+                  ],
+                )),
+                SizedBox(height: screensize * 0.015),
+              ],
+            ),
           );
         }
       }
@@ -220,7 +243,7 @@ class HomePageWiget extends StatelessWidget {
                     myMoneyText,
                     style: TextStyle(color: black, fontSize: screensize * 0.03),
                   ),
-                  LocaleText(
+                  Text(
                     "${_homePageBloc.countsSum} ${_homePageBloc.currencyList[_homePageBloc.currencyListIndex]['currency']}",
                     style: TextStyle(color: black, fontSize: screensize * 0.02),
                   ),

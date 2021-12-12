@@ -12,7 +12,7 @@
    "Approve":"Approve",
    "Delete transaction?":"Delete transaction?",
    "Delete account?":"Delete account?",
-   "You closed the account,":"You closed the account,",
+   "You closed the account":"You closed the account",
    "sum was debited":"sum was debited",
    "Income from":"Income from",
    "Expense to":"Expense to",

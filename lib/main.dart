@@ -19,7 +19,7 @@ import 'package:flutter_locales/flutter_locales.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Locales.init(['en', 'ru']);
+  await Locales.init(['en', 'ru', 'it']);
   await Hive.initFlutter();
   runApp(const MyApp());
 }
