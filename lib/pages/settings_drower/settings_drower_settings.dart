@@ -11,41 +11,48 @@ class SettingsSettings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomePageBloc, HomePagetState>(builder: (context, state) {
+      var lang = context.currentLocale;
       return Scaffold(
         backgroundColor: headcolor2,
         appBar: AppBar(
           title: LocaleText(textSettings),
         ),
-        body: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ListTile(
-                title: const Text('English'),
-                onTap: () {
-                  context.changeLocale('en');
-
-                  Navigator.of(context).pop();
-                },
+        body: Column(
+          children: [
+            ListTile(
+              title: Text(
+                'English',
+                style: TextStyle(
+                    color: lang.toString() == 'en' ? unBought : bought),
               ),
-              ListTile(
-                title: const Text('Українська'),
-                onTap: () {
-                  context.changeLocale('it');
-
-                  Navigator.of(context).pop();
-                },
+              onTap: () {
+                context.changeLocale('en');
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Українська',
+                style: TextStyle(
+                    color: lang.toString() == 'it' ? unBought : bought),
               ),
-              ListTile(
-                title: const Text('Русский'),
-                onTap: () {
-                  context.changeLocale('ru');
-
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          ),
+              onTap: () {
+                context.changeLocale('it');
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Русский',
+                style: TextStyle(
+                    color: lang.toString() == 'ru' ? unBought : bought),
+              ),
+              onTap: () {
+                context.changeLocale('ru');
+                Navigator.of(context).pop();
+              },
+            )
+          ],
         ),
       );
     });

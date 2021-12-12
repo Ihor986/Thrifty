@@ -269,7 +269,7 @@ class HomePageWiget extends StatelessWidget {
           padding: EdgeInsets.only(top: screensize * 0.12),
           child: Container(
             color: headcolor2,
-            height: screensize * 0.5,
+            height: screensize * 0.53,
             child: ListView.builder(
               itemCount: _homePageBloc.transactionsList.length,
               itemBuilder: (_, index) => Container(
@@ -296,41 +296,37 @@ class HomePageWiget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(top: screensize * 0.6),
-          child: Container(
-            height: screensize * 0.1,
-            color: headcolor2,
-            child: Row(
-                verticalDirection: VerticalDirection.up,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Center(
-                    child: IconButton(
-                        icon: const Icon(Icons.add),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/EnterIncomesPage');
-                        }),
-                  ),
-                  Center(
-                    child: IconButton(
-                        icon: const Icon(Icons.arrow_forward),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/EnterForwardPage');
-                        }),
-                  ),
-                  Center(
-                    child: IconButton(
-                        icon: const Icon(Icons.remove),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/EnterTheExpensePage');
-                        }),
-                  ),
-                ]),
-          ),
+          padding: EdgeInsets.only(top: screensize * 0.57),
+          child: Row(
+              verticalDirection: VerticalDirection.up,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Center(
+                  child: IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/EnterIncomesPage');
+                      }),
+                ),
+                Center(
+                  child: IconButton(
+                      icon: const Icon(Icons.arrow_forward),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/EnterForwardPage');
+                      }),
+                ),
+                Center(
+                  child: IconButton(
+                      icon: const Icon(Icons.remove),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/EnterTheExpensePage');
+                      }),
+                ),
+              ]),
         ),
         DraggableScrollableSheet(
             initialChildSize: 0.1,
-            maxChildSize: 0.88,
+            maxChildSize: 0.9,
             minChildSize: 0.1,
             builder: (context, index) {
               return Container(
