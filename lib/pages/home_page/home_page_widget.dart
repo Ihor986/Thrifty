@@ -143,11 +143,12 @@ class HomePageWiget extends StatelessWidget {
                       style: TextStyle(color: unBought),
                     ),
                     Text(
-                      '${0 - _homePageBloc.transactionsList[index]['closeTheAccountSum']}',
+                      '${0 - _homePageBloc.transactionsList[index]['closeTheAccountSum']} ${_homePageBloc.transactionsList[index]['currency']}',
                       style: TextStyle(color: unBought),
                     ),
                   ],
                 )),
+                SizedBox(height: screensize * 0.01),
                 Center(
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,7 +167,10 @@ class HomePageWiget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(),
+                    Text(
+                      _homePageBloc.transactionsList[index]['account'],
+                      style: TextStyle(color: unBought),
+                    )
                   ],
                 )),
                 SizedBox(height: screensize * 0.015),
