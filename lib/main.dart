@@ -17,6 +17,8 @@ import 'pages/transactions_page/edite_forward_page.dart';
 import 'pages/transactions_page/edite_transaction_page.dart';
 import 'package:flutter_locales/flutter_locales.dart';
 
+import 'pages/transactions_page/single_transactions_page.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Locales.init(myLocales);
@@ -68,6 +70,8 @@ class MyApp extends StatelessWidget {
                         const SettingsShopList(),
                     '/SettingsSettings': (BuildContext context) =>
                         const SettingsSettings(),
+                    '/SingleTransactionPageWiget': (BuildContext context) =>
+                        const SingleTransactionPageWiget(),
                   }),
             ));
 

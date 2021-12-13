@@ -54,6 +54,11 @@ class TransactionsPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(7.0),
                           child: GestureDetector(
+                            onTap: () {
+                              _homePageBloc.indexSinglAccount = index;
+                              Navigator.pushNamed(
+                                  context, '/SingleTransactionPageWiget');
+                            },
                             onLongPress: () async {
                               if (_homePageBloc.countsList.length > 1) {
                                 return showDialog(

@@ -36,6 +36,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
       'sum': 0.0,
     },
   ];
+  int indexSinglAccount = 0;
   int indexToSelectAccount = 0; //
   int countsListIndex = 0;
   int indexForwardAccount1 = 0;
