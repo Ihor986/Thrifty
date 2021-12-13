@@ -23,7 +23,24 @@ class _EnterForwardPageState extends State<EnterForwardPage> {
           resizeToAvoidBottomInset: false,
           backgroundColor: headcolor2,
           appBar: AppBar(
-            title: const LocaleText("transaction"),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const LocaleText("transaction"),
+                IconButton(
+                    onPressed: () {
+                      showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2099))
+                          .then((date) {
+                        _homePageBloc.transactionDate = date!;
+                      });
+                    },
+                    icon: const Icon(Icons.calendar_today_outlined))
+              ],
+            ),
           ),
           body: Column(
             children: [
@@ -74,123 +91,126 @@ class _EnterForwardPageState extends State<EnterForwardPage> {
                     }),
               ),
               const SizedBox(height: 10),
-              Container(
-                color: headcolor2,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        return showDialog(
-                          context: context,
-                          barrierDismissible: true, // user must tap button!
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: headcolor2,
-                              scrollable: true,
-                              title: LocaleText(selectAccount),
-                              actions: <Widget>[
-                                Center(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        color: headcolor2,
-                                        height: screensize * 0.2,
-                                        width: screensize * 0.2,
-                                        child: ListView.builder(
-                                            itemCount:
-                                                _homePageBloc.countsList.length,
-                                            itemBuilder: (_, index) =>
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  child: ListTile(
-                                                    title: TextButton(
-                                                      child: Text(
-                                                          // 'category'),
-                                                          '${_homePageBloc.countsList[index]['name']}'),
-                                                      onPressed: () {
-                                                        _homePageBloc.add(
-                                                            ChangeForvardAccount(
-                                                                1, index));
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  color: headcolor2,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: () async {
+                          return showDialog(
+                            context: context,
+                            barrierDismissible: true, // user must tap button!
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: headcolor2,
+                                scrollable: true,
+                                title: LocaleText(selectAccount),
+                                actions: <Widget>[
+                                  Center(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          color: headcolor2,
+                                          height: screensize * 0.2,
+                                          width: screensize * 0.2,
+                                          child: ListView.builder(
+                                              itemCount: _homePageBloc
+                                                  .countsList.length,
+                                              itemBuilder: (_, index) =>
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                    child: ListTile(
+                                                      title: TextButton(
+                                                        child: Text(
+                                                            // 'category'),
+                                                            '${_homePageBloc.countsList[index]['name']}'),
+                                                        onPressed: () {
+                                                          _homePageBloc.add(
+                                                              ChangeForvardAccount(
+                                                                  1, index));
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
                                                     ),
-                                                  ),
-                                                )),
-                                      ),
-                                    ],
+                                                  )),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          LocaleText(fromAccount),
-                          Text(
-                              ' "${_homePageBloc.countsList[_homePageBloc.indexForwardAccount1]['name']}"'),
-                        ],
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            LocaleText(fromAccount),
+                            Text(
+                                ' "${_homePageBloc.countsList[_homePageBloc.indexForwardAccount1]['name']}"'),
+                          ],
+                        ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        return showDialog(
-                          context: context,
-                          barrierDismissible: true, // user must tap button!
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: headcolor2,
-                              scrollable: true,
-                              title: LocaleText(selectAccount),
-                              actions: <Widget>[
-                                Center(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        color: headcolor2,
-                                        height: screensize * 0.2,
-                                        width: screensize * 0.2,
-                                        child: ListView.builder(
-                                            itemCount:
-                                                _homePageBloc.countsList.length,
-                                            itemBuilder: (_, index) =>
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  child: ListTile(
-                                                    title: TextButton(
-                                                      child: Text(
-                                                          '${_homePageBloc.countsList[index]['name']}'),
-                                                      onPressed: () {
-                                                        _homePageBloc.add(
-                                                            ChangeForvardAccount(
-                                                                2, index));
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
+                      GestureDetector(
+                        onTap: () async {
+                          return showDialog(
+                            context: context,
+                            barrierDismissible: true, // user must tap button!
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: headcolor2,
+                                scrollable: true,
+                                title: LocaleText(selectAccount),
+                                actions: <Widget>[
+                                  Center(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          color: headcolor2,
+                                          height: screensize * 0.2,
+                                          width: screensize * 0.2,
+                                          child: ListView.builder(
+                                              itemCount: _homePageBloc
+                                                  .countsList.length,
+                                              itemBuilder: (_, index) =>
+                                                  Container(
+                                                    alignment: Alignment.center,
+                                                    child: ListTile(
+                                                      title: TextButton(
+                                                        child: Text(
+                                                            '${_homePageBloc.countsList[index]['name']}'),
+                                                        onPressed: () {
+                                                          _homePageBloc.add(
+                                                              ChangeForvardAccount(
+                                                                  2, index));
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                      ),
                                                     ),
-                                                  ),
-                                                )),
-                                      ),
-                                    ],
+                                                  )),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          LocaleText(toAccount),
-                          Text(
-                              ' "${_homePageBloc.countsList[_homePageBloc.indexForwardAccount2]['name']}"'),
-                        ],
+                                ],
+                              );
+                            },
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            LocaleText(toAccount),
+                            Text(
+                                ' "${_homePageBloc.countsList[_homePageBloc.indexForwardAccount2]['name']}"'),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 10),

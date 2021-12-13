@@ -34,3 +34,4 @@ String selectAccount = "Select account";
 String fromAccount = "from account";
 String sumToAccount = "sum to account";
 List<String> myLocales = ['en', 'ru', 'it'];
+String dateText = "date";

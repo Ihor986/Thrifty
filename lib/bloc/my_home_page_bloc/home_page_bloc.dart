@@ -25,6 +25,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     'December '
   ];
   List transactionsList = [];
+  DateTime transactionDate = DateTime.now();
   double transactionSum = 0;
   double sumFrom = 0.0;
   double sumTo = 0.0;
@@ -231,22 +232,27 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     await _transactionsBox.put('currencyListIndex', currencyListIndex);
   }
 
+  _sortTransactions() {
+    transactionsList.sort((a, b) => b['id'].compareTo(a['id']));
+  }
+
   Future _addTransaction(eventSum, eventCurrency, eventCategory, eventAccount,
       eventCurrencyListIndex) async {
     indexToSelectAccount = countsList.indexWhere(
         (element) => element['id'] == 'Id$eventAccount$eventCurrency');
     Map _transaction = {
       'sum': eventSum,
-      'id': DateTime.now().millisecondsSinceEpoch,
+      'id': transactionDate.microsecondsSinceEpoch,
       'currency': eventCurrency,
       'category': eventCategory,
-      'date': "${DateTime.now().day} ",
-      'month': "${DateTime.now().month}",
-      'year': "${DateTime.now().year}",
+      'date': "${transactionDate.day} ",
+      'month': "${transactionDate.month}",
+      'year': "${transactionDate.year}",
       'account': eventAccount,
       // 'accountId': '$eventAccount$eventCurrency',
     };
     transactionsList.insert(0, _transaction);
+    _sortTransactions();
     currencyList[eventCurrencyListIndex]['sum'] += eventSum;
     countsList[indexToSelectAccount]['sum'] += eventSum;
     if (_transaction['sum'] < 0) {
@@ -260,10 +266,13 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     await _transactionsBox.put('transactionsList', transactionsList);
     await _transactionsBox.put('currencyList', currencyList);
     await _transactionsBox.put('countsList', countsList);
+    transactionDate = DateTime.now();
   }
 
   _editeTransaction(eventSum, eventCurrency, eventCategory, eventAccount,
       eventCurrencyListIndex) async {
+    transactionDate = DateTime.fromMicrosecondsSinceEpoch(
+        transactionsList[editeTransactionIndex]['id']);
     bool isIncome = transactionsList[editeTransactionIndex]['sum'] > 0;
     indexToSelectAccount = countsList.indexWhere(
         (element) => element['id'] == 'Id$eventAccount$eventCurrency');
@@ -273,17 +282,15 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
           ['id'], // DateTime.now().millisecondsSinceEpoch,
       'currency': eventCurrency,
       'category': eventCategory,
-      'date': transactionsList[editeTransactionIndex]
-          ['date'], //"${DateTime.now().day} ",
-      'month': transactionsList[editeTransactionIndex]
-          ['month'], // "${DateTime.now().month}",
-      'year': transactionsList[editeTransactionIndex]
-          ['year'], //"${DateTime.now().year}",
+      'date': transactionDate.day.toString() + ' ', //"${DateTime.now().day} ",
+      'month': transactionDate.month.toString(), // "${DateTime.now().month}",
+      'year': transactionDate.year.toString(), //"${DateTime.now().year}",
       'account': eventAccount,
       // 'accountId': '$eventAccount$eventCurrency',
     };
     _deleteTransaction(editeTransactionIndex);
     transactionsList.insert(editeTransactionIndex, _transaction);
+    _sortTransactions();
     currencyList[eventCurrencyListIndex]['sum'] +=
         isIncome ? eventSum : 0 - eventSum;
     countsList[indexToSelectAccount]['sum'] +=
@@ -301,6 +308,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     await _transactionsBox.put('transactionsList', transactionsList);
     await _transactionsBox.put('currencyList', currencyList);
     await _transactionsBox.put('countsList', countsList);
+    transactionDate = DateTime.now();
   }
 
   _addForvard(valueFrom, valueTo) async {
@@ -311,16 +319,17 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     Map _transaction = {
       'sum1': valueFrom,
       'sum2': valueTo,
-      'id': DateTime.now().millisecondsSinceEpoch,
+      'id': transactionDate.microsecondsSinceEpoch,
       'currency1': countsList[indexForwardAccount1]['currency'],
       'currency2': countsList[indexForwardAccount2]['currency'],
-      'date': "${DateTime.now().day} ",
-      'month': "${DateTime.now().month}",
-      'year': "${DateTime.now().year}",
+      'date': "${transactionDate.day} ",
+      'month': "${transactionDate.month}",
+      'year': "${transactionDate.year}",
       'account1': countsList[indexForwardAccount1]['name'],
       'account2': countsList[indexForwardAccount2]['name'],
     };
     transactionsList.insert(0, _transaction);
+    _sortTransactions();
     currencyList[currencyIndex1]['sum'] += valueFrom;
     currencyList[currencyIndex2]['sum'] += valueTo;
     countsList[indexForwardAccount1]['sum'] += valueFrom;
@@ -332,9 +341,12 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     await _transactionsBox.put('transactionsList', transactionsList);
     await _transactionsBox.put('currencyList', currencyList);
     await _transactionsBox.put('countsList', countsList);
+    transactionDate = DateTime.now();
   }
 
   _editForwardTransaction(valueFrom, valueTo) async {
+    transactionDate = DateTime.fromMicrosecondsSinceEpoch(
+        transactionsList[editeTransactionIndex]['id']);
     int currencyIndex1 = currencyList.indexWhere((element) =>
         element['currency'] == countsList[indexForwardAccount1]['currency']);
     int currencyIndex2 = currencyList.indexWhere((element) =>
@@ -346,17 +358,15 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
           ['id'], // DateTime.now().millisecondsSinceEpoch,
       'currency1': countsList[indexForwardAccount1]['currency'],
       'currency2': countsList[indexForwardAccount2]['currency'],
-      'date': transactionsList[editeTransactionIndex]
-          ['date'], //"${DateTime.now().day} ",
-      'month': transactionsList[editeTransactionIndex]
-          ['month'], //"${DateTime.now().month}",
-      'year': transactionsList[editeTransactionIndex]
-          ['year'], //"${DateTime.now().year}",
+      'date': transactionDate.day.toString() + ' ', //"${DateTime.now().day} ",
+      'month': transactionDate.month.toString(), //"${DateTime.now().month}",
+      'year': transactionDate.year.toString(), //"${DateTime.now().year}",
       'account1': countsList[indexForwardAccount1]['name'],
       'account2': countsList[indexForwardAccount2]['name'],
     };
     _deleteForwardTransaction(editeTransactionIndex);
     transactionsList.insert(editeTransactionIndex, _transaction);
+    _sortTransactions();
     currencyList[currencyIndex1]['sum'] += valueFrom;
     currencyList[currencyIndex2]['sum'] += valueTo;
     countsList[indexForwardAccount1]['sum'] += valueFrom;
@@ -368,6 +378,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     await _transactionsBox.put('transactionsList', transactionsList);
     await _transactionsBox.put('currencyList', currencyList);
     await _transactionsBox.put('countsList', countsList);
+    transactionDate = DateTime.now();
   }
 
   Future _deleteTransaction(index) async {

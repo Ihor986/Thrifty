@@ -13,24 +13,29 @@ class EnterIncomesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomePageBloc _homePageBloc = BlocProvider.of<HomePageBloc>(context);
     double screensize = MediaQuery.of(context).size.height;
-    // blankField() {
-    //   return showDialog(
-    //       context: context,
-    //       barrierDismissible: true, // user must tap button!
-    //       builder: (BuildContext context) {
-    //         return AlertDialog(
-    //           backgroundColor: headcolor2,
-    //           scrollable: true,
-    //           title: const Text('blank field'),
-    //         );
-    //       });
-    // }
 
     return BlocBuilder<HomePageBloc, HomePagetState>(builder: (context, state) {
       return Scaffold(
           backgroundColor: headcolor2,
           appBar: AppBar(
-            title: const LocaleText("transaction"),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const LocaleText("transaction"),
+                IconButton(
+                    onPressed: () {
+                      showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2099))
+                          .then((date) {
+                        _homePageBloc.transactionDate = date!;
+                      });
+                    },
+                    icon: const Icon(Icons.calendar_today_outlined))
+              ],
+            ),
           ),
           body: Column(
             children: [
