@@ -53,7 +53,7 @@ class TransactionsPage extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(7.0),
-                          child: GestureDetector(
+                          child: ListTile(
                             onTap: () {
                               _homePageBloc.indexSinglAccount = index;
                               Navigator.pushNamed(
@@ -83,7 +83,7 @@ class TransactionsPage extends StatelessWidget {
                                 );
                               }
                             },
-                            child: Row(
+                            title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(

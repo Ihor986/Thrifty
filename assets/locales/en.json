@@ -50,7 +50,8 @@
    "October ":"October ",
    "November ":"November ",
    "date":"date",
-   "December ":"December "
+   "December ":"December ",
+   "You are over budget":"You are over budget"
    
    
 }

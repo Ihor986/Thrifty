@@ -3,6 +3,7 @@ String labelBottomNavigashionTransactionlist = '';
 String labelBottomNavigashionShoplist = '';
 String shoplist = 'Shopping List';
 String budget = 'You still can spend';
+String negativeBudget = "You are over budget";
 String transactions = "Transactions";
 String textSettingsCounts = 'currencys';
 String textSettingsBudget = 'budget';

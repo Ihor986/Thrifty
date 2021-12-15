@@ -51,7 +51,7 @@ class HomePageWiget extends StatelessWidget {
                             style: TextStyle(color: red))
                   ],
                 ),
-                SizedBox(height: screensize * 0.01),
+                SizedBox(height: screensize * 0.005),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -68,7 +68,7 @@ class HomePageWiget extends StatelessWidget {
                         textAlign: TextAlign.start),
                   ],
                 ),
-                SizedBox(height: screensize * 0.015),
+                // SizedBox(height: screensize * 0.005),
               ],
             ),
           );
@@ -102,7 +102,7 @@ class HomePageWiget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: screensize * 0.01),
+                SizedBox(height: screensize * 0.005),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -123,7 +123,7 @@ class HomePageWiget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: screensize * 0.015),
+                // SizedBox(height: screensize * 0.015),
               ],
             ),
           );
@@ -148,7 +148,7 @@ class HomePageWiget extends StatelessWidget {
                     ),
                   ],
                 )),
-                SizedBox(height: screensize * 0.01),
+                SizedBox(height: screensize * 0.005),
                 Center(
                     child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,7 +173,7 @@ class HomePageWiget extends StatelessWidget {
                     )
                   ],
                 )),
-                SizedBox(height: screensize * 0.015),
+                // SizedBox(height: screensize * 0.015),
               ],
             ),
           );
@@ -280,7 +280,7 @@ class HomePageWiget extends StatelessWidget {
               itemCount: _homePageBloc.transactionsList.length,
               itemBuilder: (_, index) => Container(
                 color: index % 2 == 0 ? headcolor2 : headcolor2,
-                child: GestureDetector(
+                child: ListTile(
                   onLongPress: () async {
                     return showDialog(
                       context: context,
@@ -295,7 +295,7 @@ class HomePageWiget extends StatelessWidget {
                       },
                     );
                   },
-                  child: _transactionTextWidget(index),
+                  title: _transactionTextWidget(index),
                 ),
               ),
             ),

@@ -51,7 +51,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: Text(approveText),
+                        child: LocaleText(approveText),
                         onPressed: () {
                           try {
                             if (_inputController.text != '') {
@@ -77,7 +77,8 @@ class MyHomePage extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  LocaleText(budget,
+                  LocaleText(
+                      _homePageBloc.budgetSum < 0 ? negativeBudget : budget,
                       style: TextStyle(
                           color: black, fontSize: screensize * 0.025)),
                   Text(

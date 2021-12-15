@@ -76,8 +76,8 @@ class FullShopListWiget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Column(
                       children: [
-                        TextButton(
-                          onPressed: () {
+                        ListTile(
+                          onTap: () {
                             _homePageBloc.add(FullListChangeStatus(_homePageBloc
                                     .shopList[_homePageBloc.headShopList][index]
                                 ['id']));
@@ -106,13 +106,15 @@ class FullShopListWiget extends StatelessWidget {
                             );
                           },
                           // },
-                          child: Text(
+                          title: Text(
                             '${_homePageBloc.shopList[_homePageBloc.headShopList][index]['product']}',
                             style: TextStyle(
-                                color: _homePageBloc.shopList[_homePageBloc
-                                        .headShopList][index]['isBought']
-                                    ? bought
-                                    : unBought),
+                              color: _homePageBloc
+                                          .shopList[_homePageBloc.headShopList]
+                                      [index]['isBought']
+                                  ? bought
+                                  : unBought,
+                            ),
                           ),
                         ),
                       ],

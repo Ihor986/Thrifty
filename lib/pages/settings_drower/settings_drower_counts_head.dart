@@ -31,30 +31,33 @@ class SettingsCountsHead extends StatelessWidget {
                 itemCount: _homePageBloc.currencyList.length,
                 itemBuilder: (context, index) {
                   bool isChecked = _homePageBloc.currencyListIndex == index;
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('${_homePageBloc.currencyList[index]['currency']}'),
-                      Row(
-                        children: [
-                          Text(
-                            '${double.parse(_homePageBloc.currencyList[index]['sum'].toStringAsFixed(2))}',
+                  return ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                            '${_homePageBloc.currencyList[index]['currency']}'),
+                        Row(
+                          children: [
+                            Text(
+                              '${double.parse(_homePageBloc.currencyList[index]['sum'].toStringAsFixed(2))}',
 
-                            // textAlign: TextAlign.end,
-                          ),
-                          Checkbox(
-                            checkColor: Colors.white,
-                            fillColor:
-                                MaterialStateProperty.resolveWith(getColor),
-                            value: isChecked,
-                            onChanged: (bool? value) {
-                              _homePageBloc
-                                  .add(ChangeCurrencyListIndexEvent(index));
-                            },
-                          )
-                        ],
-                      ),
-                    ],
+                              // textAlign: TextAlign.end,
+                            ),
+                            Checkbox(
+                              checkColor: Colors.white,
+                              fillColor:
+                                  MaterialStateProperty.resolveWith(getColor),
+                              value: isChecked,
+                              onChanged: (bool? value) {
+                                _homePageBloc
+                                    .add(ChangeCurrencyListIndexEvent(index));
+                              },
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   );
                 }),
           ),

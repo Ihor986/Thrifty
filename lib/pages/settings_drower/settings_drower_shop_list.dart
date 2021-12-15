@@ -11,13 +11,8 @@ class SettingsShopList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomePageBloc _homePageBloc = BlocProvider.of<HomePageBloc>(context);
-    double screensize = MediaQuery.of(context).size.height;
+    // double screensize = MediaQuery.of(context).size.height;
     Color getColor(Set<MaterialState> states) {
-      // const Set<MaterialState> interactiveStates = <MaterialState>{
-      //   MaterialState.pressed,
-      //   MaterialState.hovered,
-      //   MaterialState.focused,
-      // };
       return Colors.teal;
     }
 
@@ -38,53 +33,51 @@ class SettingsShopList extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(7.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onLongPress: () async {
-                              if (_homePageBloc.shopList.length > 1) {
-                                return showDialog(
-                                  context: context,
-                                  barrierDismissible:
-                                      true, // user must tap button!
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text(deleteShopListText),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: LocaleText(approveText),
-                                          onPressed: () async {
-                                            _homePageBloc.add(
-                                                DeleteShopListEvent(
-                                                    _homePageBloc.shopList.keys
-                                                        .toList()[index]));
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
+                      child: ListTile(
+                        onLongPress: () async {
+                          if (_homePageBloc.shopList.length > 1) {
+                            return showDialog(
+                              context: context,
+                              barrierDismissible: true, // user must tap button!
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(deleteShopListText),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: LocaleText(approveText),
+                                      onPressed: () async {
+                                        _homePageBloc.add(DeleteShopListEvent(
+                                            _homePageBloc.shopList.keys
+                                                .toList()[index]));
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
                                 );
-                              }
-                            },
-                            child: Text(
+                              },
+                            );
+                          }
+                        },
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
                                 '${_homePageBloc.shopList.keys.toList()[index]}'),
-                          ),
-                          Checkbox(
-                            checkColor: Colors.white,
-                            fillColor:
-                                MaterialStateProperty.resolveWith(getColor),
-                            value: isChecked,
-                            onChanged: (bool? value) {
-                              _homePageBloc.add(ChangeHeadShopListEvent(
-                                  '${_homePageBloc.shopList.keys.toList()[index]}'));
-                            },
-                          )
-                        ],
+                            Checkbox(
+                              checkColor: Colors.white,
+                              fillColor:
+                                  MaterialStateProperty.resolveWith(getColor),
+                              value: isChecked,
+                              onChanged: (bool? value) {
+                                _homePageBloc.add(ChangeHeadShopListEvent(
+                                    '${_homePageBloc.shopList.keys.toList()[index]}'));
+                              },
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                    SizedBox(height: screensize * 0.05)
+                    // SizedBox(height: screensize * 0.05)
                   ],
                 );
               }),
@@ -112,9 +105,10 @@ class SettingsShopList extends StatelessWidget {
                               _homePageBloc.add(
                                   AddNewShopListEvent(_inputController.text));
                               Navigator.of(context).pop();
+                            } else {
+                              Navigator.of(context).pop();
+                              _homePageBloc.blankField(context);
                             }
-                            Navigator.of(context).pop();
-                            _homePageBloc.blankField(context);
                           },
                         ),
                       ]);
