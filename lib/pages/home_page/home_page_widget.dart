@@ -187,6 +187,7 @@ class HomePageWiget extends StatelessWidget {
               child: LocaleText(editeText),
               onPressed: () async {
                 _homePageBloc.editeTransactionIndex = index;
+                _homePageBloc.transactionDate = DateTime.now();
                 Navigator.of(context).pop();
                 Navigator.pushNamed(context, '/EditeTransactionPage');
               },
@@ -206,6 +207,7 @@ class HomePageWiget extends StatelessWidget {
               child: LocaleText(editeText),
               onPressed: () async {
                 _homePageBloc.editeTransactionIndex = index;
+                _homePageBloc.transactionDate = DateTime.now();
                 Navigator.of(context).pop();
                 Navigator.pushNamed(context, '/EditeForwardTransactionPage');
               },
@@ -309,6 +311,7 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
+                        _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterIncomesPage');
                       }),
                 ),
@@ -316,6 +319,7 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.arrow_forward),
                       onPressed: () {
+                        _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterForwardPage');
                       }),
                 ),
@@ -323,6 +327,7 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.remove),
                       onPressed: () {
+                        _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterTheExpensePage');
                       }),
                 ),

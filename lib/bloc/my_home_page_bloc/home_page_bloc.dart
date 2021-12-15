@@ -233,7 +233,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
   }
 
   _sortTransactions() {
-    transactionsList.sort((a, b) => b['id'].compareTo(a['id']));
+    transactionsList.sort((a, b) => b['sortID'].compareTo(a['sortID']));
   }
 
   Future _addTransaction(eventSum, eventCurrency, eventCategory, eventAccount,
@@ -242,7 +242,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
         (element) => element['id'] == 'Id$eventAccount$eventCurrency');
     Map _transaction = {
       'sum': eventSum,
-      'id': transactionDate.microsecondsSinceEpoch,
+      'id': DateTime.now(),
+      'sortID': transactionDate.microsecondsSinceEpoch,
       'currency': eventCurrency,
       'category': eventCategory,
       'date': "${transactionDate.day} ",
@@ -278,8 +279,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
         (element) => element['id'] == 'Id$eventAccount$eventCurrency');
     Map _transaction = {
       'sum': isIncome ? eventSum : 0 - eventSum,
-      'id': transactionsList[editeTransactionIndex]
-          ['id'], // DateTime.now().millisecondsSinceEpoch,
+      'id': transactionsList[editeTransactionIndex]['id'],
+      'sortID': transactionDate
+          .microsecondsSinceEpoch, // DateTime.now().millisecondsSinceEpoch,
       'currency': eventCurrency,
       'category': eventCategory,
       'date': transactionDate.day.toString() + ' ', //"${DateTime.now().day} ",
@@ -319,7 +321,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     Map _transaction = {
       'sum1': valueFrom,
       'sum2': valueTo,
-      'id': transactionDate.microsecondsSinceEpoch,
+      'id': DateTime.now(),
+      'sortID': transactionDate.microsecondsSinceEpoch,
       'currency1': countsList[indexForwardAccount1]['currency'],
       'currency2': countsList[indexForwardAccount2]['currency'],
       'date': "${transactionDate.day} ",
@@ -354,8 +357,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     Map _transaction = {
       'sum1': valueFrom,
       'sum2': valueTo,
-      'id': transactionsList[editeTransactionIndex]
-          ['id'], // DateTime.now().millisecondsSinceEpoch,
+      'id': transactionsList[editeTransactionIndex]['id'],
+      'sortID': transactionDate
+          .microsecondsSinceEpoch, // DateTime.now().millisecondsSinceEpoch,
       'currency1': countsList[indexForwardAccount1]['currency'],
       'currency2': countsList[indexForwardAccount2]['currency'],
       'date': transactionDate.day.toString() + ' ', //"${DateTime.now().day} ",
