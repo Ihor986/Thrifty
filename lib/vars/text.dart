@@ -36,3 +36,4 @@ String fromAccount = "from account";
 String sumToAccount = "sum to account";
 List<String> myLocales = ['en', 'ru'];
 String dateText = "date";
+String transactionListSettingsText = "transaction list settings";

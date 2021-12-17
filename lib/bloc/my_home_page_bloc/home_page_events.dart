@@ -156,7 +156,7 @@ class ChangeThemeColorEvent extends HomePageEvent {
 class DeleteShopListEvent extends HomePageEvent {
   final String value;
 
-  DeleteShopListEvent(this.value); //
+  DeleteShopListEvent(this.value); //SettingsTransactionsListEvent
 }
 
 class EditeForwardTransactionEvent extends HomePageEvent {
@@ -175,4 +175,10 @@ class EditeTransactionEvent extends HomePageEvent {
 
   EditeTransactionEvent(this.currencyListIndex, this.sum, this.currency,
       this.category, this.account);
+}
+
+class SettingsTransactionsListEvent extends HomePageEvent {
+  final bool value;
+
+  SettingsTransactionsListEvent(this.value); //
 }

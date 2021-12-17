@@ -7,7 +7,7 @@ part 'home_page_events.dart';
 part 'home_page_state.dart';
 
 class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
-  List<String> lang = ['eng', 'ru'];
+  bool transactionsListLengthLong = true;
   int indexLang = 0;
   int currentIndex = 1;
   List<String> months = [
@@ -187,6 +187,10 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
           event.account, event.currencyListIndex);
       yield HomePageActiveState();
     }
+    if (event is SettingsTransactionsListEvent) {
+      await _editeTransactionsListSettings(event.value);
+      yield HomePageActiveState();
+    }
   }
 
   Future _initial() async {
@@ -213,7 +217,10 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
         defaultValue: expensCategorys);
     incomeCategorys = await _transactionsBox.get('incomeCategorys',
         defaultValue: incomeCategorys);
-
+    transactionsListLengthLong = await _transactionsBox.get(
+        'transactionsListLength',
+        defaultValue: transactionsListLengthLong);
+    _editeTransactionsList();
     budgetSum = double.parse(
         currencyList[currencyListIndex]['budget'].toStringAsFixed(2));
     countsSum =
@@ -256,7 +263,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     _sortTransactions();
     currencyList[eventCurrencyListIndex]['sum'] += eventSum;
     countsList[indexToSelectAccount]['sum'] += eventSum;
-    if (_transaction['sum'] < 0) {
+    if (_transaction['sum'] < 0 &&
+        transactionDate.month == DateTime.now().month &&
+        transactionDate.year == DateTime.now().year) {
       currencyList[eventCurrencyListIndex]['budget'] += eventSum;
     }
     budgetSum = double.parse(
@@ -298,7 +307,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     countsList[indexToSelectAccount]['sum'] +=
         isIncome ? eventSum : 0 - eventSum;
     if (_transaction['sum'] < 0 &&
-        _transaction['month'] == DateTime.now().month.toString()) {
+        _transaction['month'] == DateTime.now().month.toString() &&
+        _transaction['year'] == DateTime.now().year.toString()) {
       currencyList[eventCurrencyListIndex]['budget'] +=
           isIncome ? eventSum : 0 - eventSum;
     }
@@ -398,7 +408,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
           transactionsList[index]['sum'];
 
       if (transactionsList[index]['sum'] < 0 &&
-          transactionsList[index]['month'] == DateTime.now().month.toString()) {
+          transactionsList[index]['month'] == DateTime.now().month.toString() &&
+          transactionsList[index]['year'] == DateTime.now().year.toString()) {
         currencyList[eventCurrencyListIndex]['budget'] -=
             transactionsList[index]['sum'];
       }
@@ -688,5 +699,25 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
             title: const LocaleText("blank field"),
           );
         });
+  }
+
+  _editeTransactionsListSettings(value) async {
+    transactionsListLengthLong = value;
+    _editeTransactionsList();
+    var _transactionsBox = await Hive.openBox('transactionsBox');
+    await _transactionsBox.put(
+        'transactionsListLength', transactionsListLengthLong);
+  }
+
+  _editeTransactionsList() async {
+    DateTime date = DateTime.now();
+    if (transactionsListLengthLong) {
+      transactionsList = transactionsList
+          .where((element) =>
+              element['sortID'] >
+              DateTime(date.year, date.month - 4, date.day)
+                  .microsecondsSinceEpoch)
+          .toList();
+    }
   }
 }

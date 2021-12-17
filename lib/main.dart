@@ -10,6 +10,7 @@ import 'pages/settings_drower/settings_drower_counts.dart';
 import 'pages/settings_drower/settings_drower_counts_head.dart';
 import 'pages/settings_drower/settings_drower_settings.dart';
 import 'pages/settings_drower/settings_drower_shop_list.dart';
+import 'pages/settings_drower/settings_drower_transactions_list.dart';
 import 'pages/transactions_page/add_expense_page.dart';
 import 'pages/transactions_page/add_forward_page.dart';
 import 'pages/transactions_page/add_income_page.dart';
@@ -72,6 +73,8 @@ class MyApp extends StatelessWidget {
                         const SettingsSettings(),
                     '/SingleTransactionPageWiget': (BuildContext context) =>
                         const SingleTransactionPageWiget(),
+                    '/SettingsTransactionsList': (BuildContext context) =>
+                        const SettingsTransactionsList(),
                   }),
             ));
 
