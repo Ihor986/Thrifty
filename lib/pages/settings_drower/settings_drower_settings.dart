@@ -30,17 +30,17 @@ class SettingsSettings extends StatelessWidget {
                 Navigator.of(context).pop();
               },
             ),
-            ListTile(
-              title: Text(
-                'Українська',
-                style: TextStyle(
-                    color: lang.toString() == 'it' ? unBought : bought),
-              ),
-              onTap: () {
-                context.changeLocale('it');
-                Navigator.of(context).pop();
-              },
-            ),
+            // ListTile(
+            //   title: Text(
+            //     'Українська',
+            //     style: TextStyle(
+            //         color: lang.toString() == 'it' ? unBought : bought),
+            //   ),
+            //   onTap: () {
+            //     context.changeLocale('it');
+            //     Navigator.of(context).pop();
+            //   },
+            // ),
             ListTile(
               title: Text(
                 'Русский',
