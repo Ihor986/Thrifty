@@ -650,13 +650,13 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
       Map _transaction = {
         'closeTheAccountSum': countsList[index]['sum'],
         'id': DateTime.now().millisecondsSinceEpoch,
+        'sortID': DateTime.now().microsecondsSinceEpoch,
         'currency': countsList[index]['currency'],
         'category': 'close account',
         'date': "${DateTime.now().day} ",
         'month': "${DateTime.now().month}",
         'year': "${DateTime.now().year}",
         'account': countsList[index]['name'],
-        // 'accountId': '$eventAccount$eventCurrency',name
       };
       transactionsList.insert(0, _transaction);
       currencyList[deletedCurrencyListIndex]['sum'] -= countsList[index]['sum'];
