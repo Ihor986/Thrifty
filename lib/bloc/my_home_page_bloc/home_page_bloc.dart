@@ -570,7 +570,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
 
   void _sort(items) {
     items.sort((a, b) =>
-        a['id'].toString().length.compareTo(b['id'].toString().length));
+        int.parse(a['id'].toString()).compareTo(int.parse(b['id'].toString())));
     items.sort((a, b) => a['isBought']
         .toString()
         .length

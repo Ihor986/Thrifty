@@ -186,6 +186,8 @@ class HomePageWiget extends StatelessWidget {
             TextButton(
               child: LocaleText(editeText),
               onPressed: () async {
+                _homePageBloc.transactionSum =
+                    _homePageBloc.transactionsList[index]['sum'];
                 _homePageBloc.editeTransactionIndex = index;
                 _homePageBloc.transactionDate = DateTime.now();
                 Navigator.of(context).pop();
@@ -206,6 +208,10 @@ class HomePageWiget extends StatelessWidget {
             TextButton(
               child: LocaleText(editeText),
               onPressed: () async {
+                _homePageBloc.sumFrom =
+                    _homePageBloc.transactionsList[index]['sum1'];
+                _homePageBloc.sumTo =
+                    _homePageBloc.transactionsList[index]['sum2'];
                 _homePageBloc.editeTransactionIndex = index;
                 _homePageBloc.transactionDate = DateTime.now();
                 Navigator.of(context).pop();
@@ -311,6 +317,7 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
+                        _homePageBloc.transactionSum = 0;
                         _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterIncomesPage');
                       }),
@@ -319,6 +326,8 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.arrow_forward),
                       onPressed: () {
+                        _homePageBloc.sumFrom = 0;
+                        _homePageBloc.sumTo = 0;
                         _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterForwardPage');
                       }),
@@ -327,6 +336,7 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.remove),
                       onPressed: () {
+                        _homePageBloc.transactionSum = 0;
                         _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterTheExpensePage');
                       }),
