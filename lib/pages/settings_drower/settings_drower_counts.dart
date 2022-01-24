@@ -20,60 +20,63 @@ class SettingsCounts extends StatelessWidget {
         appBar: AppBar(
           title: const LocaleText("Accounts"),
         ),
-        body: Column(children: [
-          Form(
-            child: Column(
-              children: [
-                SizedBox(height: screensize * 0.02),
-                TextField(
-                  keyboardType: TextInputType.text,
-                  maxLength: 10,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'enter the count name',
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(children: [
+            Form(
+              child: Column(
+                children: [
+                  SizedBox(height: screensize * 0.02),
+                  TextField(
+                    keyboardType: TextInputType.text,
+                    maxLength: 10,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'enter the count name',
+                    ),
+                    onChanged: (value) {
+                      try {
+                        countName = value;
+                      } catch (e) {
+                        // print('error');
+                      }
+                    },
                   ),
-                  onChanged: (value) {
-                    try {
-                      countName = value;
-                    } catch (e) {
-                      // print('error');
-                    }
-                  },
-                ),
-                SizedBox(height: screensize * 0.02),
-                TextField(
-                  maxLength: 3,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'enter the currency name',
+                  SizedBox(height: screensize * 0.02),
+                  TextField(
+                    maxLength: 3,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'enter the currency name',
+                    ),
+                    onChanged: (value) {
+                      try {
+                        currencyName = value.toUpperCase();
+                      } catch (e) {
+                        // print('error');
+                      }
+                    },
                   ),
-                  onChanged: (value) {
-                    try {
-                      currencyName = value.toUpperCase();
-                    } catch (e) {
-                      // print('error');
-                    }
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: screensize * 0.02),
-          TextButton(
-              onPressed: () {
-                if (currencyName != '' && countName != '') {
-                  _homePageBloc
-                      .add(AddAccountEvent(currencyName, countName, 0.0));
-                  Navigator.pop(context, true);
-                } else {
-                  _homePageBloc.blankField(context);
-                }
-              },
-              child: LocaleText(
-                add,
-                style: const TextStyle(color: Colors.black),
-              ))
-        ]));
+            SizedBox(height: screensize * 0.02),
+            TextButton(
+                onPressed: () {
+                  if (currencyName != '' && countName != '') {
+                    _homePageBloc
+                        .add(AddAccountEvent(currencyName, countName, 0.0));
+                    Navigator.pop(context, true);
+                  } else {
+                    _homePageBloc.blankField(context);
+                  }
+                },
+                child: LocaleText(
+                  add,
+                  style: const TextStyle(color: Colors.black),
+                ))
+          ]),
+        ));
   }
 }

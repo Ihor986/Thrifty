@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:thrifty/bloc/my_home_page_bloc/home_page_bloc.dart';
 import 'package:thrifty/vars/colors.dart';
 import 'package:thrifty/vars/text.dart';
@@ -44,7 +45,7 @@ class TransactionsPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: screensize * 0.1),
             child: Container(
-              height: screensize * 0.65,
+              height: screensize * 0.58,
               color: headcolor2,
               child: ListView.builder(
                   itemCount: _homePageBloc.countsList.length,
@@ -94,10 +95,19 @@ class TransactionsPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: screensize * 0.05)
+                        // SizedBox(height: screensize * 0.05)
                       ],
                     );
                   }),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: screensize * 0.7),
+            child: SizedBox(
+              height: 50,
+              child: _homePageBloc.isBanner2AdReady
+                  ? AdWidget(ad: _homePageBloc.banner2)
+                  : Container(color: headcolor,height: 50),
             ),
           ),
         ],

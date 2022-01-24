@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:thrifty/bloc/my_home_page_bloc/home_page_bloc.dart';
 import 'package:thrifty/vars/colors.dart';
 import 'package:thrifty/vars/text.dart';
@@ -68,7 +69,7 @@ class FullShopListWiget extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: screensize * 0.1),
             child: Container(
-              height: screensize * 0.7,
+              height: screensize * 0.58,
               color: headcolor2,
               child: ListView.builder(
                   itemCount:
@@ -120,6 +121,18 @@ class FullShopListWiget extends StatelessWidget {
                       ],
                     );
                   }),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: screensize * 0.7),
+            child: SizedBox(
+              height: 50,
+              child: _homePageBloc.isBanner1AdReady
+                  ? AdWidget(ad: _homePageBloc.banner1)
+                  : Container(
+                      color: headcolor,
+                      height: 50,
+                    ),
             ),
           ),
         ],

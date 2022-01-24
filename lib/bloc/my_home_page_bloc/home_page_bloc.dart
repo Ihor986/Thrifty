@@ -1,12 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:thrifty/vars/colors.dart';
 part 'home_page_events.dart';
 part 'home_page_state.dart';
 
 class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
+  // google ads bloc
+  bool isBanner1AdReady = false;
+  bool isBanner2AdReady = false;
+  late BannerAd banner1;
+  late BannerAd banner2;
+
+  void loadBannerAd() {
+    banner1 = BannerAd(
+      adUnitId: 'ca-app-pub-3470951757127936/7315252817',
+      // adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          isBanner1AdReady = true;
+        },
+        onAdFailedToLoad: (ad, error) {},
+      ),
+    );
+    banner1.load();
+
+    banner2 = BannerAd(
+      adUnitId: 'ca-app-pub-3470951757127936/7315252817',
+      // adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          isBanner2AdReady = true;
+        },
+        onAdFailedToLoad: (ad, error) {},
+      ),
+    );
+    banner2.load();
+  }
+// google ads bloc end
+
   bool transactionsListLengthLong = true;
   int indexLang = 0;
   int currentIndex = 1;
@@ -194,6 +232,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
   }
 
   Future _initial() async {
+    loadBannerAd(); //google ads bloc
     var _transactionsBox = await Hive.openBox('transactionsBox');
     // _transactionsBox.clear();
     var _shopListBox = await Hive.openBox('shopListBox');
@@ -249,7 +288,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
         (element) => element['id'] == 'Id$eventAccount$eventCurrency');
     Map _transaction = {
       'sum': eventSum,
-      'id': DateTime.now(),
+      'id': DateTime.now().microsecondsSinceEpoch,
       'sortID': transactionDate.microsecondsSinceEpoch,
       'currency': eventCurrency,
       'category': eventCategory,
