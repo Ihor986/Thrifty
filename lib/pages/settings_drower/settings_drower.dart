@@ -77,6 +77,19 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             Navigator.pushNamed(context, '/SettingsSettings');
           },
         )),
+        const Divider(),
+        ListTile(
+            title: TextButton(
+          child: LocaleText(
+            transactionListSettingsText,
+            style: TextStyle(
+              color: black,
+            ),
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, '/SettingsTransactionsList');
+          },
+        )),
       ],
     ));
   }

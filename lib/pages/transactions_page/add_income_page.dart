@@ -208,7 +208,7 @@ class EnterIncomesPage extends StatelessWidget {
                     children: [
                       LocaleText(toAccount),
                       Text(
-                          '  "${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['name']} ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['currency']}"'),
+                          '  "${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['name']}" ${_homePageBloc.countsList[_homePageBloc.indexToSelectAccount]['currency']}'),
                     ],
                   ),
                   onPressed: () async {

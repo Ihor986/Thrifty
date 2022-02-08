@@ -1,13 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_locales/flutter_locales.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:thrifty/vars/colors.dart';
 part 'home_page_events.dart';
 part 'home_page_state.dart';
 
 class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
-  List<String> lang = ['eng', 'ru'];
+  // google ads bloc
+  bool isBanner1AdReady = false;
+  bool isBanner2AdReady = false;
+  late BannerAd banner1;
+  late BannerAd banner2;
+
+  void loadBannerAd() {
+    banner1 = BannerAd(
+      adUnitId: 'ca-app-pub-3470951757127936/7315252817',
+      // adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          isBanner1AdReady = true;
+        },
+        onAdFailedToLoad: (ad, error) {},
+      ),
+    );
+    banner1.load();
+
+    banner2 = BannerAd(
+      adUnitId: 'ca-app-pub-3470951757127936/7315252817',
+      // adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      request: const AdRequest(),
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          isBanner2AdReady = true;
+        },
+        onAdFailedToLoad: (ad, error) {},
+      ),
+    );
+    banner2.load();
+  }
+// google ads bloc end
+
+  bool transactionsListLengthLong = true;
   int indexLang = 0;
   int currentIndex = 1;
   List<String> months = [
@@ -187,9 +225,14 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
           event.account, event.currencyListIndex);
       yield HomePageActiveState();
     }
+    if (event is SettingsTransactionsListEvent) {
+      await _editeTransactionsListSettings(event.value);
+      yield HomePageActiveState();
+    }
   }
 
   Future _initial() async {
+    loadBannerAd(); //google ads bloc
     var _transactionsBox = await Hive.openBox('transactionsBox');
     // _transactionsBox.clear();
     var _shopListBox = await Hive.openBox('shopListBox');
@@ -213,7 +256,10 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
         defaultValue: expensCategorys);
     incomeCategorys = await _transactionsBox.get('incomeCategorys',
         defaultValue: incomeCategorys);
-
+    transactionsListLengthLong = await _transactionsBox.get(
+        'transactionsListLength',
+        defaultValue: transactionsListLengthLong);
+    _editeTransactionsList();
     budgetSum = double.parse(
         currencyList[currencyListIndex]['budget'].toStringAsFixed(2));
     countsSum =
@@ -242,7 +288,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
         (element) => element['id'] == 'Id$eventAccount$eventCurrency');
     Map _transaction = {
       'sum': eventSum,
-      'id': DateTime.now(),
+      'id': DateTime.now().microsecondsSinceEpoch,
       'sortID': transactionDate.microsecondsSinceEpoch,
       'currency': eventCurrency,
       'category': eventCategory,
@@ -256,7 +302,9 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     _sortTransactions();
     currencyList[eventCurrencyListIndex]['sum'] += eventSum;
     countsList[indexToSelectAccount]['sum'] += eventSum;
-    if (_transaction['sum'] < 0) {
+    if (_transaction['sum'] < 0 &&
+        transactionDate.month == DateTime.now().month &&
+        transactionDate.year == DateTime.now().year) {
       currencyList[eventCurrencyListIndex]['budget'] += eventSum;
     }
     budgetSum = double.parse(
@@ -298,7 +346,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
     countsList[indexToSelectAccount]['sum'] +=
         isIncome ? eventSum : 0 - eventSum;
     if (_transaction['sum'] < 0 &&
-        _transaction['month'] == DateTime.now().month.toString()) {
+        _transaction['month'] == DateTime.now().month.toString() &&
+        _transaction['year'] == DateTime.now().year.toString()) {
       currencyList[eventCurrencyListIndex]['budget'] +=
           isIncome ? eventSum : 0 - eventSum;
     }
@@ -398,7 +447,8 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
           transactionsList[index]['sum'];
 
       if (transactionsList[index]['sum'] < 0 &&
-          transactionsList[index]['month'] == DateTime.now().month.toString()) {
+          transactionsList[index]['month'] == DateTime.now().month.toString() &&
+          transactionsList[index]['year'] == DateTime.now().year.toString()) {
         currencyList[eventCurrencyListIndex]['budget'] -=
             transactionsList[index]['sum'];
       }
@@ -559,7 +609,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
 
   void _sort(items) {
     items.sort((a, b) =>
-        a['id'].toString().length.compareTo(b['id'].toString().length));
+        int.parse(a['id'].toString()).compareTo(int.parse(b['id'].toString())));
     items.sort((a, b) => a['isBought']
         .toString()
         .length
@@ -639,13 +689,13 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
       Map _transaction = {
         'closeTheAccountSum': countsList[index]['sum'],
         'id': DateTime.now().millisecondsSinceEpoch,
+        'sortID': DateTime.now().microsecondsSinceEpoch,
         'currency': countsList[index]['currency'],
         'category': 'close account',
         'date': "${DateTime.now().day} ",
         'month': "${DateTime.now().month}",
         'year': "${DateTime.now().year}",
         'account': countsList[index]['name'],
-        // 'accountId': '$eventAccount$eventCurrency',name
       };
       transactionsList.insert(0, _transaction);
       currencyList[deletedCurrencyListIndex]['sum'] -= countsList[index]['sum'];
@@ -688,5 +738,25 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePagetState> {
             title: const LocaleText("blank field"),
           );
         });
+  }
+
+  _editeTransactionsListSettings(value) async {
+    transactionsListLengthLong = value;
+    _editeTransactionsList();
+    var _transactionsBox = await Hive.openBox('transactionsBox');
+    await _transactionsBox.put(
+        'transactionsListLength', transactionsListLengthLong);
+  }
+
+  _editeTransactionsList() async {
+    DateTime date = DateTime.now();
+    if (transactionsListLengthLong) {
+      transactionsList = transactionsList
+          .where((element) =>
+              element['sortID'] >
+              DateTime(date.year, date.month - 4, date.day)
+                  .microsecondsSinceEpoch)
+          .toList();
+    }
   }
 }

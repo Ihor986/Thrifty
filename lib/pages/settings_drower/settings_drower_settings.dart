@@ -34,10 +34,10 @@ class SettingsSettings extends StatelessWidget {
               title: Text(
                 'Українська',
                 style: TextStyle(
-                    color: lang.toString() == 'it' ? unBought : bought),
+                    color: lang.toString() == 'uk' ? unBought : bought),
               ),
               onTap: () {
-                context.changeLocale('it');
+                context.changeLocale('uk');
                 Navigator.of(context).pop();
               },
             ),

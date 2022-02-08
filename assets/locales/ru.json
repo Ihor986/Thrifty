@@ -51,6 +51,8 @@
     "November ":"Ноября ",
     "December ":"Декабря ",
     "You are over budget":"Бюджет превышен",
+    "transaction list settings":"Настройка списка транзакций",
+    "Save transactions for the last three months":"хранить транзакции за последние три месяца",
     "date":"дата"
     
  }

@@ -11,6 +11,7 @@ class HomePageWiget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screensize = MediaQuery.of(context).size.height;
+    // double screensizeWidth = MediaQuery.of(context).size.width;
     return BlocBuilder<HomePageBloc, HomePagetState>(builder: (context, state) {
       final HomePageBloc _homePageBloc = BlocProvider.of<HomePageBloc>(context);
 
@@ -27,28 +28,36 @@ class HomePageWiget extends StatelessWidget {
                         ? Row(
                             children: [
                               LocaleText(incomeFromText,
-                                  style: TextStyle(color: green)),
+                                  style: TextStyle(
+                                      color: green,
+                                      fontWeight: FontWeight.bold)),
                               Text(
                                   ' "${_homePageBloc.transactionsList[index]['category']}" ',
-                                  style: TextStyle(color: green)),
+                                  style: TextStyle(
+                                      color: green,
+                                      fontWeight: FontWeight.bold)),
                             ],
                           )
                         : Row(
                             children: [
                               LocaleText(expenseToText,
-                                  style: TextStyle(color: red)),
+                                  style: TextStyle(
+                                      color: red, fontWeight: FontWeight.bold)),
                               Text(
                                   ' "${_homePageBloc.transactionsList[index]['category']}" ',
-                                  style: TextStyle(color: red)),
+                                  style: TextStyle(
+                                      color: red, fontWeight: FontWeight.bold)),
                             ],
                           ),
                     _homePageBloc.transactionsList[index]['sum'] > 0
                         ? Text(
                             '${_homePageBloc.transactionsList[index]['sum']} ${_homePageBloc.transactionsList[index]['currency']}',
-                            style: TextStyle(color: green))
+                            style: TextStyle(
+                                color: green, fontWeight: FontWeight.bold))
                         : Text(
                             '${_homePageBloc.transactionsList[index]['sum']} ${_homePageBloc.transactionsList[index]['currency']}',
-                            style: TextStyle(color: red))
+                            style: TextStyle(
+                                color: red, fontWeight: FontWeight.bold))
                   ],
                 ),
                 SizedBox(height: screensize * 0.005),
@@ -85,20 +94,23 @@ class HomePageWiget extends StatelessWidget {
                       children: [
                         LocaleText(
                           forwardFromText,
-                          style: TextStyle(color: blue),
+                          style: TextStyle(
+                              color: blue, fontWeight: FontWeight.bold),
                         ),
                         Text(
                           ' ' +
                               _homePageBloc.transactionsList[index]
                                   ['account1'] +
                               ' ',
-                          style: TextStyle(color: blue),
+                          style: TextStyle(
+                              color: blue, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
                     Text(
                       '  ${_homePageBloc.transactionsList[index]['sum2']} ${_homePageBloc.transactionsList[index]['currency2']}',
-                      style: TextStyle(color: blue),
+                      style:
+                          TextStyle(color: blue, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -140,11 +152,13 @@ class HomePageWiget extends StatelessWidget {
                   children: [
                     LocaleText(
                       deleteAccountTransactionText1,
-                      style: TextStyle(color: unBought),
+                      style: TextStyle(
+                          color: unBought, fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '${0 - _homePageBloc.transactionsList[index]['closeTheAccountSum']} ${_homePageBloc.transactionsList[index]['currency']}',
-                      style: TextStyle(color: unBought),
+                      style: TextStyle(
+                          color: unBought, fontWeight: FontWeight.bold),
                     ),
                   ],
                 )),
@@ -186,6 +200,10 @@ class HomePageWiget extends StatelessWidget {
             TextButton(
               child: LocaleText(editeText),
               onPressed: () async {
+                _homePageBloc.transactionSum =
+                    _homePageBloc.transactionsList[index]['sum'] > 0
+                        ? _homePageBloc.transactionsList[index]['sum']
+                        : 0 - _homePageBloc.transactionsList[index]['sum'];
                 _homePageBloc.editeTransactionIndex = index;
                 _homePageBloc.transactionDate = DateTime.now();
                 Navigator.of(context).pop();
@@ -206,6 +224,10 @@ class HomePageWiget extends StatelessWidget {
             TextButton(
               child: LocaleText(editeText),
               onPressed: () async {
+                _homePageBloc.sumFrom =
+                    _homePageBloc.transactionsList[index]['sum1'];
+                _homePageBloc.sumTo =
+                    _homePageBloc.transactionsList[index]['sum2'];
                 _homePageBloc.editeTransactionIndex = index;
                 _homePageBloc.transactionDate = DateTime.now();
                 Navigator.of(context).pop();
@@ -238,41 +260,68 @@ class HomePageWiget extends StatelessWidget {
 
       return Stack(children: [
         Padding(
-          padding: EdgeInsets.only(top: screensize * 0.01),
+          padding: EdgeInsets.all(screensize * 0.02),
           child: Container(
             color: headcolor2,
-            height: screensize * 0.07,
-            child: Center(
-              child: Column(
-                children: [
-                  LocaleText(
-                    myMoneyText,
-                    style: TextStyle(color: black, fontSize: screensize * 0.03),
-                  ),
-                  Text(
-                    "${_homePageBloc.countsSum} ${_homePageBloc.currencyList[_homePageBloc.currencyListIndex]['currency']}",
-                    style: TextStyle(color: black, fontSize: screensize * 0.02),
-                  ),
-                ],
-              ),
+            height: screensize * 0.09,
+            // child: Row(
+            //       mainAxisAlignment : MainAxisAlignment.spaceBetween,
+            //       // crossAxisAlignment : CrossAxisAlignment.end,
+            //       children: [
+            //       const Icon(Icons.attach_money, size: 20,),
+            //         Text(
+            //           "${_homePageBloc.countsSum} ${_homePageBloc.currencyList[_homePageBloc.currencyListIndex]['currency']}",
+            //           style: TextStyle(color: black, fontSize: screensize * 0.03, fontWeight: FontWeight.bold ),
+            //         ),
+            //       ],
+            //     ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment : CrossAxisAlignment.end,
+                  children: [
+                    LocaleText(
+                      myMoneyText,
+                      style:
+                          TextStyle(color: black, fontSize: screensize * 0.03),
+                    ),
+                    const SizedBox(),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment : CrossAxisAlignment.end,
+                  children: [
+                    const SizedBox(),
+                    Text(
+                      "${_homePageBloc.countsSum} ${_homePageBloc.currencyList[_homePageBloc.currencyListIndex]['currency']}",
+                      style: TextStyle(
+                          color: black,
+                          fontSize: screensize * 0.03,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
+        // Padding(
+        //   padding: EdgeInsets.only(top: screensize * 0.06),
+        //   child: Container(
+        //     color: headcolor2,
+        //     height: screensize * 0.04,
+        //     child: Center(
+        //       child: LocaleText(
+        //         transactions,
+        //         style: TextStyle(color: black, fontSize: screensize * 0.02),
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Padding(
-          padding: EdgeInsets.only(top: screensize * 0.08),
-          child: Container(
-            color: headcolor2,
-            height: screensize * 0.04,
-            child: Center(
-              child: LocaleText(
-                transactions,
-                style: TextStyle(color: black, fontSize: screensize * 0.02),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: screensize * 0.12),
+          padding: EdgeInsets.only(top: screensize * 0.1),
           child: Container(
             color: headcolor2,
             height: screensize * 0.53,
@@ -311,6 +360,7 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.add),
                       onPressed: () {
+                        _homePageBloc.transactionSum = 0;
                         _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterIncomesPage');
                       }),
@@ -319,6 +369,8 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.arrow_forward),
                       onPressed: () {
+                        _homePageBloc.sumFrom = 0;
+                        _homePageBloc.sumTo = 0;
                         _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterForwardPage');
                       }),
@@ -327,6 +379,7 @@ class HomePageWiget extends StatelessWidget {
                   child: IconButton(
                       icon: const Icon(Icons.remove),
                       onPressed: () {
+                        _homePageBloc.transactionSum = 0;
                         _homePageBloc.transactionDate = DateTime.now();
                         Navigator.pushNamed(context, '/EnterTheExpensePage');
                       }),
@@ -335,7 +388,7 @@ class HomePageWiget extends StatelessWidget {
         ),
         DraggableScrollableSheet(
             initialChildSize: 0.1,
-            maxChildSize: 0.9,
+            maxChildSize: 0.87,
             minChildSize: 0.1,
             builder: (context, index) {
               return Container(
@@ -346,7 +399,7 @@ class HomePageWiget extends StatelessWidget {
                     style: TextStyle(color: white),
                   )),
                   ListView.builder(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: screensize * 0.05),
                       controller: index,
                       itemCount: _homePageBloc
                           .shopList[_homePageBloc.headShopList].length,
